@@ -1,0 +1,23 @@
+Postgres dump alma 
+Önce almak istediğimiz database in pg_dump ını alıyoruz 
+/usr/pgsql-11/bin/pg_dump -Fc Postgres > /var/lib/pgsql/11/backups/Postgres2.dump  -v
+ 
+[root@nazelin-test-04 ~]# su - postgres
+Last login: Thu Jul 30 15:58:33 +03 2020 on pts/0
+-bash-4.2$ /usr/pgsql-11/bin/pg_dump -d Postgres2  /var/lib/pgsql/11/backups/Postgres2.dump -v
+ 
+Postgres restore etme
+
+dump ın almış olduğumuzu database in yeni isimle pg_restore ile restore ediyoruz 
+create database "Postgres2" owner postgres
+/usr/pgsql-11/bin/pg_restore -d Postgres2  /var/lib/pgsql/11/backups/Postgres2.dump -j 2 -v
+
+[root@nazelin-test-04 ~]# su - postgres
+Last login: Thu Jul 30 15:58:33 +03 2020 on pts/0
+-bash-4.2$ /usr/pgsql-11/bin/pg_restore -d Postgres2  /var/lib/pgsql/11/backups/Postgres2.dump -j 2 -v 
+
+d -> restore edeceğimiz db 
+
+-j 2 ->restore etme de kullanıyoruz sadece ,paralel de kaç cpu kullansın onu belirtiyoruz daha hızlansın .
+
+-v   ->verbose 
